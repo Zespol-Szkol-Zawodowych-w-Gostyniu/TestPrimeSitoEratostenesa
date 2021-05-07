@@ -4,7 +4,7 @@
 #include <iostream>
 #include <time.h>
 using namespace std;
-
+const unsigned int rozmiar = 200000;
 int sito(bool tabPrimeNumber[], int size) {
     for (int i = 0; i < size; i++) {
         tabPrimeNumber[i] = 1;
@@ -59,21 +59,36 @@ bool testPrime2(unsigned long long n, bool tabPrimeNumber[], int rozmiar) {
     }
     return p;
 }
+void sito2(unsigned int tabPrimeNumber[]) {
+    unsigned int n = 3;
+    unsigned int i = 2;
+    tabPrimeNumber[0] = 2;
+    tabPrimeNumber[1] = 3;
+    while (i < rozmiar) {
+        if (testPrime(n)) {
+            tabPrimeNumber[i] = n;
+            i++;
+        }
+        n += 2;
+    }
+}
+
 int main()
 {
-    const unsigned int rozmiar = 1000001;
+    
     bool tabPrimeNumber[rozmiar];
+    unsigned int tab[rozmiar];
     unsigned long long n = 991999999717;
     //4999879
     //61698999949
     //98765432167
     //997799999199999971
-    sito(tabPrimeNumber, rozmiar);//wygenerowanie sita
+    cout << sito(tabPrimeNumber, rozmiar) << endl;;//wygenerowanie sita
     clock_t start = clock();
-    cout << testPrime(n) << endl;
+    //cout << testPrime(n) << endl;
     //cout << testPrime2(n, tabPrimeNumber, rozmiar) << endl;
-    
-    
+    sito2(tab);
+    cout<<tab[rozmiar - 1] << endl;
     clock_t end = clock();
     double elapsed = double(end - start) / CLOCKS_PER_SEC;
     cout << elapsed << end;
