@@ -59,6 +59,22 @@ bool testPrime2(unsigned long long n, bool tabPrimeNumber[], int rozmiar) {
     }
     return p;
 }
+bool testPrime3(unsigned long long n, unsigned int tabPrimeNumber[], int rozmiar) {
+    bool p = true;
+    if (n < 2) p = false;
+    if ((n != 2) && (n % 2 == 0)) p = false;
+    if (n != 2) {
+        unsigned long long x = ceil(sqrt(n));
+        for (int i = 3; i <= rozmiar; i++) {
+            if (n % tabPrimeNumber[i] == 0) {
+                p = false;
+                break;
+            }
+            if (i > x) break;
+        }
+    }
+    return p;
+}
 void sito2(unsigned int tabPrimeNumber[]) {
     unsigned int n = 3;
     unsigned int i = 2;
@@ -75,20 +91,21 @@ void sito2(unsigned int tabPrimeNumber[]) {
 
 int main()
 {
-    
     bool tabPrimeNumber[rozmiar];
     unsigned int tab[rozmiar];
-    unsigned long long n = 991999999717;
+    unsigned long long n = 741345314801;
     //4999879
     //61698999949
     //98765432167
     //997799999199999971
+    sito2(tab); //2746151 -> x^2 = 7541345314801
+    //cout<<tab[rozmiar - 1] << endl;
     cout << sito(tabPrimeNumber, rozmiar) << endl;;//wygenerowanie sita
     clock_t start = clock();
     //cout << testPrime(n) << endl;
     //cout << testPrime2(n, tabPrimeNumber, rozmiar) << endl;
-    sito2(tab);
-    cout<<tab[rozmiar - 1] << endl;
+    cout << testPrime3(n, tab, rozmiar) << endl;
+    
     clock_t end = clock();
     double elapsed = double(end - start) / CLOCKS_PER_SEC;
     cout << elapsed << end;
